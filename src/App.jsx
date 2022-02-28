@@ -82,17 +82,6 @@ useEffect(async () => {
   }
 }, [hasClaimedNFT, proposals, address]);
 
-if (error instanceof UnsupportedChainIdError ) {
-  return (
-    <div className="unsupported-network">
-      <h2>Please connect to Rinkeby</h2>
-      <p>
-        This dapp only works on the Rinkeby network, please switch networks
-        in your connected wallet.
-      </p>
-    </div>
-  );
-}
 
 // A fancy function to shorten someones wallet address, no need to show the whole thing. 
 const shortenAddress = (str) => {
@@ -158,6 +147,18 @@ const memberList = useMemo(() => {
     // If they don't have an connected wallet, exit!
     if (!address) {
       return;
+    }
+
+    if (error instanceof UnsupportedChainIdError ) {
+      return (
+        <div className="unsupported-network">
+          <h2>Please connect to Rinkeby</h2>
+          <p>
+            This dapp only works on the Rinkeby network, please switch networks
+            in your connected wallet.
+          </p>
+        </div>
+      );
     }
 
     // Check if the user has the NFT by using bundleDropModule.balanceOf
